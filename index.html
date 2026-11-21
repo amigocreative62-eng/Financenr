@@ -674,13 +674,27 @@ const sheets=[];
 function openSheet(title,body,opts={}){
   const ov=document.createElement('div');ov.className='ov';
   ov.innerHTML=`<div class="sheet${opts.wide?' wide':''}" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="shh"><h2>${esc(title)}</h2><button class="ib" data-close aria-label="Close">${icon('x')}</button></div><div class="sb">${body}</div></div>`;
-  $('#sheetRoot').appendChild(ov);sheets.push(ov);
+  $('#sheetRoot').appendChild(ov);sheets.push(ov);bkPush();
   ov.addEventListener('mousedown',e=>{if(e.target===ov)closeSheet(ov)});
   ov.close=()=>closeSheet(ov);
   setTimeout(()=>{const f=$('input:not([type=hidden]):not([readonly]),select,textarea',ov);if(f&&opts.focus!==false&&matchMedia('(min-width:700px)').matches)f.focus()},60);
   return ov;
 }
-function closeSheet(ov){const i=sheets.indexOf(ov);if(i>=0)sheets.splice(i,1);ov.remove()}
+function closeSheet(ov){const i=sheets.indexOf(ov);if(i>=0)sheets.splice(i,1);ov.remove();bkSync()}
+/* back-button stack: one history entry per open sheet */
+let bkN=0,bkIgnore=0,bkTimer=0,bkExit=false;
+function bkPush(){try{if(bkN<sheets.length){history.pushState({sheet:1},'');bkN++}}catch(e){}}
+function bkSync(){clearTimeout(bkTimer);bkTimer=setTimeout(()=>{const x=bkN-sheets.length;if(x>0){bkN=sheets.length;bkIgnore++;try{history.go(-x)}catch(e){bkIgnore=0}}},0)}
+window.addEventListener('popstate',()=>{
+  if(bkIgnore>0){bkIgnore=0;return}
+  if(bkN>0){bkN--;const t=sheets[sheets.length-1];if(t){sheets.pop();t.remove()}return}
+  const h=(location.hash||'#home').slice(1).toLowerCase();
+  if((h===''||h==='home')&&state.route==='home'){
+    if(bkExit){bkExit=false;try{history.back()}catch(e){}return}
+    bkExit=true;try{history.pushState({x:1},'')}catch(e){}toast('Press back again to exit');setTimeout(()=>{bkExit=false},2200);
+  }
+});
+try{history.pushState({x:1},'')}catch(e){}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheets.length)closeSheet(sheets[sheets.length-1])});
 function confirmBox(msg,ok='Delete',danger=true){
   return new Promise(res=>{
@@ -2495,7 +2509,7 @@ const TITLES={offers:'Offers','safe-zone':'Safe Zone','my-cash':'My Cash',home:'
 function route(h){
   h=h||(location.hash||'#home').slice(1).toLowerCase();if(!ROUTES[h])h='home';
   if(h!=='safe-zone')safeUnlocked=false;
-  state.route=h;if(ROUTES[h]==='org')state.org=h==='all'?'ALL':h.toUpperCase();
+  bkN=0;state.route=h;if(ROUTES[h]==='org')state.org=h==='all'?'ALL':h.toUpperCase();
   current=views[ROUTES[h]];const el=$('#view');el.innerHTML='';current.mount(el);current.update();
   $('#pageTitle').textContent=TITLES[h];document.body.dataset.r=h;$('#histPdf').style.display=h==='history'?'':'none';$('#offAdd').style.display=h==='offers'?'':'none';if(h!=='safe')$('#szHd').style.display='none';else if(views.safe.mode==='ledger')$('#szHd').style.display='';
   $$('[data-nav]').forEach(b=>b.classList.toggle('on',b.dataset.nav===h||(h==='all'&&false)));
