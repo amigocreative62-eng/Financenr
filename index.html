@@ -413,6 +413,30 @@ html[data-theme=dark] .stx.on{color:#4ADE80}
 .szph{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--muted)}.szph svg{width:13px;height:13px}
 .sztx .ramt{font-family:'Inter',var(--body);font-weight:800;font-size:15px}
 .sz .lockcard b,.sz .ms b{font-family:'Inter',var(--body);font-weight:800}
+
+/* supporters */
+.sphead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sptt{font-weight:700;font-size:15px;color:var(--muted)}
+.spadd{min-height:40px;padding:0 14px;font-size:13.5px;white-space:nowrap;flex:none}
+.spchips{margin:0 0 12px;scrollbar-width:none;gap:6px}.spchips .chip{padding:8px 12px;font-size:13px}.spchips::-webkit-scrollbar{display:none}
+.spsearch{margin-bottom:10px}.spsearch input[type=search]{min-height:48px;border-radius:16px}
+.spmon{margin-bottom:14px;min-height:46px;border-radius:16px;font-size:13.5px}.spmon select{font-size:13.5px}
+.splist{display:grid;gap:12px}
+.spc{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:14px 14px 0;box-shadow:var(--shadow)}
+.spt{display:flex;align-items:center;gap:12px}
+.spt .ico{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center}
+.spm{flex:1;min-width:0}.spm .rt{font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spph{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:13.5px;color:var(--muted)}.spph svg{width:15px;height:15px;flex:none}
+.spwa{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--g100);color:var(--gt)}.spwa svg{width:21px;height:21px}
+.sptags{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+.sptags .tag{display:inline-flex;align-items:center;gap:5px}.sptags .tag svg{width:14px;height:14px}
+.splast{margin-top:8px;font-size:12px;color:var(--muted)}
+.spact{display:flex;align-items:stretch;margin-top:12px;border-top:1px solid var(--line)}
+.spb{display:grid;place-items:center;border:0;background:none;color:var(--gt);min-height:48px;padding:0 16px;border-left:1px solid var(--line)}
+.spb svg{width:22px;height:22px}
+.spb.d{color:var(--bad)}
+.sph{flex:1;display:flex;align-items:center;justify-content:flex-start;gap:10px;border-left:0;padding:0 4px;font-weight:700;font-size:14px;font-family:inherit}
+.sph svg{width:22px;height:22px}
 </style>
 </head>
 <body>
@@ -478,7 +502,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const HOLDER=Math.random().toString(36).slice(2)+Date.now().toString(36);
 const P={
- home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',filter:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',refresh:'<path d="M20 11a8 8 0 0 0-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.5 4.5L20 16M20 20v-4h-4"/>',save:'<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/>',cloud:'<path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.75 4.75 0 0 1 .5 9.5"/><path d="M12 21v-8M9 15.5l3-3 3 3"/>',alert:'<path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.4v.1"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.1"/>',rset:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3l5 5v3M14 3v5h5M9 13h3M9 17h2"/><circle cx="17" cy="17" r="2"/><path d="M17 13.6v.9M17 19.5v.9M14.1 15.3l.8.5M19.1 18.2l.8.5M14.1 18.7l.8-.5M19.1 15.8l.8-.5"/>',gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/>',hourg:'<path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/>',dots:'<circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',plus:'<path d="M12 5v14M5 12h14"/>',
+ home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',filter:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',refresh:'<path d="M20 11a8 8 0 0 0-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.5 4.5L20 16M20 20v-4h-4"/>',save:'<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/>',cloud:'<path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.75 4.75 0 0 1 .5 9.5"/><path d="M12 21v-8M9 15.5l3-3 3 3"/>',alert:'<path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.4v.1"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.1"/>',rset:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3l5 5v3M14 3v5h5M9 13h3M9 17h2"/><circle cx="17" cy="17" r="2"/><path d="M17 13.6v.9M17 19.5v.9M14.1 15.3l.8.5M19.1 18.2l.8.5M14.1 18.7l.8-.5M19.1 15.8l.8-.5"/>',gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/>',hourg:'<path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/>',dots:'<circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',pluscircle:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',plus:'<path d="M12 5v14M5 12h14"/>',
  down:'<path d="M12 5v14M6 13l6 6 6-6"/>',up:'<path d="M12 19V5M6 11l6-6 6 6"/>',
  wallet:'<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h15V9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/>',
  box:'<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
@@ -1135,13 +1159,45 @@ views.history={
     $('#hlist',el).innerHTML=rows.length?`<div class="list hlist">${shown.map(x=>hCard(x,h.tab)).join('')}</div>${rows.length>h.limit?`<div class="more-wrap"><button class="btn" data-act="hmore">Show more (${rows.length-h.limit} left)</button></div>`:''}`:emptyState(isLoading()?'Loading records…':'Nothing found',act.length?'Try a different search or clear the filters.':'No records yet.');
   }
 };
+function supRows(){
+  const f=state.sup,q=f.q.toLowerCase();
+  return data.supporters.map(s=>({s,f:followup(s)})).filter(r=>{
+    const hay=[r.s.name,r.s.phone,r.s.address,...(r.s.donations||[]).map(d=>d.purpose)].join(' ').toLowerCase();
+    if(q&&!hay.includes(q))return false;
+    if(f.hm&&(!r.f.last||String(r.f.last.hijriMonth)!==f.hm))return false;
+    if(f.f==='due')return r.f.st==='due'||r.f.st==='overdue';
+    if(f.f==='soon')return r.f.st==='soon';if(f.f==='ok')return r.f.st==='ok';return true;
+  }).sort((a,b)=>b.f.diff-a.f.diff);
+}
+function supExport(){
+  const rows=supRows();
+  if(!rows.length){toast('There are no supporters to export for the current filters.',true);return}
+  if(!window.jspdf){toast('The PDF library did not load. Check your connection and try again.',true);return}
+  try{
+    const J=window.jspdf.jsPDF,doc=new J({unit:'mm',format:'a4',orientation:'landscape'}),W=297,M=12,G9=[5,61,46],G7=[11,110,79],G1=[238,247,242],INK=[16,35,27],MU=[91,110,100],f=state.sup;
+    doc.setFillColor(...G9);doc.rect(0,0,W,26,'F');doc.setFillColor(201,162,75);doc.rect(0,26,W,1.2,'F');
+    doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text('FINANCE',M,12);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.text('Supporters  ·  Generated '+fmtDate(today()),M,20);
+    const fl=[f.f!=='all'?{due:'Due now',soon:'Coming up',ok:'Up to date'}[f.f]:'',f.hm?'Last donation: '+HM[f.hm-1]:'',f.q.trim()?'Search: '+f.q.trim():''].filter(Boolean);
+    doc.setTextColor(...INK);doc.setFontSize(9.5);doc.text(fl.length?'Filters: '+fl.join('  |  '):'Filters: none (all supporters)',M,35);
+    const body=rows.map(({s,f:fo},i)=>{const ds=s.donations||[],tot=ds.reduce((x,d)=>x+(d.amountPaise||0),0),l=fo.last;
+      return [i+1,s.name,s.phone||'-',s.address||'-',ds.length,tot?fmtPdf(tot):'-',l?HM[l.hijriMonth-1]+' '+l.hijriYear+' AH ('+fmtDate(l.date)+')':'-',fo.label]});
+    doc.autoTable({startY:40,head:[['#','Name','Phone','Address','Donations','Total','Last donation','Status']],body,theme:'grid',styles:{fontSize:8.5,cellPadding:2,textColor:INK,lineColor:[221,230,223],lineWidth:.1,overflow:'linebreak'},headStyles:{fillColor:G7,textColor:255,fontStyle:'bold'},alternateRowStyles:{fillColor:[248,251,249]},margin:{left:M,right:M},
+      didParseCell:d=>{if(d.column.index===5||d.column.index===4)d.cell.styles.halign='right'}});
+    const n=doc.getNumberOfPages();
+    for(let i=1;i<=n;i++){doc.setPage(i);doc.setDrawColor(221,230,223);doc.line(M,200,W-M,200);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...MU);
+      doc.text(rows.length+' supporter'+(rows.length===1?'':'s')+'  |  FINANCE',M,205);doc.text('Page '+i+' of '+n,W-M,205,{align:'right'})}
+    saveFile('FINANCE_Supporters_'+today()+'.pdf',doc.output('blob'));
+  }catch(err){toast('Could not build the PDF: '+(err&&err.message||'unknown error'),true)}
+}
 views.supporters={
   mount(el){
     const f=state.sup;this.el=el;
-    el.innerHTML=`<div id="sbn"></div><div class="head"><div><h2 style="font-family:var(--display);font-size:20px">Supporters</h2><div class="muted small" id="hnow"></div></div><button class="btn primary sm" data-act="qa-supporter">${icon('plus')} Add Supporter</button></div>
-    <div class="chips" style="margin-top:14px">${[['all','All'],['due','Due now'],['soon','Coming up'],['ok','Up to date']].map(([k,l])=>`<button class="chip" data-act="sfilt" data-k="${k}">${l}</button>`).join('')}</div>
-    <div class="toolbar" style="grid-template-columns:1fr"><div class="sbox"><span>${icon('search')}</span><input type="search" id="sq" placeholder="Search name, phone, address, purpose…" value="${esc(f.q)}" aria-label="Search supporters"></div>
-    <select id="shm" aria-label="Hijri month of last donation"><option value="">Any Hijri month of last donation</option>${HM.map((m,i)=>`<option value="${i+1}">${esc(m)}</option>`).join('')}</select></div><div id="slist"></div>`;
+    el.innerHTML=`<div id="sbn"></div><div class="sphead"><div><div class="sptt">Manage your supporters</div><div class="muted small" id="hnow"></div></div><button class="btn primary sm spadd" data-act="qa-supporter">${icon('plus')} Add Supporter</button></div>
+    <div class="chips spchips">${[['all','All'],['due','Due now'],['soon','Coming up'],['ok','Up to date']].map(([k,l])=>`<button class="chip" data-act="sfilt" data-k="${k}">${l}</button>`).join('')}</div>
+    <div class="sbox spsearch"><span>${icon('search')}</span><input type="search" id="sq" placeholder="Search name, phone, address…" value="${esc(f.q)}" aria-label="Search supporters"></div>
+    <label class="ofsel spmon">${icon('cal')}<select id="shm" aria-label="Hijri month of last donation"><option value="">Any Hijri month of last donation</option>${HM.map((m,i)=>`<option value="${i+1}">${esc(m)}</option>`).join('')}</select></label>
+    <div id="slist"></div><div class="more-wrap"><button class="btn hexp" data-act="sup-pdf">${icon('file')} Export PDF</button></div>`;
     $('#shm',el).value=f.hm;
     $('#sq',el).addEventListener('input',e=>{f.q=e.target.value;this.list()});$('#shm',el).addEventListener('change',e=>{f.hm=e.target.value;this.list()});
   },
@@ -1149,16 +1205,13 @@ views.supporters={
   list(){
     const f=state.sup,el=this.el,now=hijriOf(today());$('#hnow',el).textContent='Today is '+HM[now.m-1]+' '+now.y+' AH';
     $$('.chip',el).forEach(b=>b.classList.toggle('on',b.dataset.k===f.f));
-    const q=f.q.toLowerCase();
-    let rows=data.supporters.map(s=>({s,f:followup(s)})).filter(r=>{
-      const hay=[r.s.name,r.s.phone,r.s.address,...(r.s.donations||[]).map(d=>d.purpose)].join(' ').toLowerCase();
-      if(q&&!hay.includes(q))return false;
-      if(f.hm&&(!r.f.last||String(r.f.last.hijriMonth)!==f.hm))return false;
-      if(f.f==='due')return r.f.st==='due'||r.f.st==='overdue';
-      if(f.f==='soon')return r.f.st==='soon';if(f.f==='ok')return r.f.st==='ok';return true;
-    }).sort((a,b)=>b.f.diff-a.f.diff);
-    $('#slist',el).innerHTML=rows.length?`<div class="list">${rows.map(({s,f})=>{const tot=(s.donations||[]).reduce((x,d)=>x+(d.amountPaise||0),0),l=f.last;
-      return `<div class="row"><div class="ico inc">${icon('users')}</div><div class="rmain"><div class="rt">${esc(s.name)}</div><div class="rs">${esc(s.phone)}${l?' · Last: '+esc(HM[l.hijriMonth-1])+' '+l.hijriYear+' AH ('+fmtDate(l.date)+')':''}</div><div class="tags"><span class="tag ${f.st==='overdue'||f.st==='due'?'bad':f.st==='soon'?'warn':'ok'}">${esc(f.label)}</span><span class="tag">${(s.donations||[]).length} donation${(s.donations||[]).length===1?'':'s'}</span>${tot?`<span class="tag">${fmt(tot)}</span>`:''}</div></div><div class="racts">${act('sup-open',s.id,'history','Donation history')}${act('sup-add',s.id,'plus','Add donation')}<a class="mini" target="_blank" rel="noopener" href="${esc(waLink(s.phone,reminderText(s)))}" aria-label="WhatsApp reminder" title="WhatsApp reminder">${icon('chat')}</a>${act('sup-edit',s.id,'edit','Edit')}${act('sup-del',s.id,'trash','Delete','d')}</div></div>`}).join('')}</div>`:emptyState(isLoading()?'Loading supporters…':'No supporters found','Add a supporter, or record an income with a phone number to build this list.');
+    const rows=supRows();
+    $('#slist',el).innerHTML=rows.length?`<div class="splist">${rows.map(({s,f})=>{const ds=s.donations||[],tot=ds.reduce((x,d)=>x+(d.amountPaise||0),0),l=f.last,st=f.st==='overdue'||f.st==='due'?'bad':f.st==='soon'?'warn':'ok';
+      const wa=waLink(s.whatsapp||s.phone,reminderText(s));
+      return `<div class="spc"><div class="spt"><div class="ico inc">${icon('users')}</div><div class="spm"><div class="rt">${esc(s.name)}</div><div class="spph">${icon('phone')} ${esc(s.phone)}</div></div><a class="spwa" target="_blank" rel="noopener" href="${esc(wa)}" aria-label="Send WhatsApp message to ${esc(s.name)}" title="WhatsApp">${icon('chat')}</a></div>
+       <div class="tags sptags"><span class="tag ${st}">${icon('gift')} ${esc(f.label)}</span><span class="tag">${icon('db')} ${ds.length} donation${ds.length===1?'':'s'}</span>${tot?`<span class="tag">${fmt(tot)}</span>`:''}</div>
+       ${l?`<div class="splast">Last: ${esc(HM[l.hijriMonth-1])} ${l.hijriYear} AH · ${fmtDate(l.date)}</div>`:''}
+       <div class="spact"><button class="spb sph" data-act="sup-open" data-id="${esc(s.id)}">${icon('history')} History</button><button class="spb" data-act="sup-add" data-id="${esc(s.id)}" aria-label="Add donation" title="Add donation">${icon('pluscircle')}</button><button class="spb" data-act="sup-edit" data-id="${esc(s.id)}" aria-label="Edit supporter" title="Edit">${icon('edit')}</button><button class="spb d" data-act="sup-del" data-id="${esc(s.id)}" aria-label="Delete supporter" title="Delete">${icon('trash')}</button></div></div>`}).join('')}</div>`:emptyState(isLoading()?'Loading supporters…':'No supporters found','Add a supporter, or record an income with a phone number to build this list.');
   }
 };
 views.settings={
@@ -2392,6 +2445,7 @@ document.addEventListener('click',async e=>{
     case 'hrm':{const h=state.hist,d={q:'',org:'ALL',from:'',to:'',stype:'ALL',pay:'ALL',src:'ALL'};if(k in d)h[k]=d[k];h.limit=60;const el=views.history.el;
       $('#hq',el).value=h.q;$('#ho',el).value=h.org;$('#hp',el).value=h.pay;$('#hsr',el).value=h.src;$('#hs',el).value=h.stype;$('#hf',el).value=h.from;$('#ht',el).value=h.to;views.history.list();break}
     case 'hview':hDetails(id,k);break;
+    case 'sup-pdf':supExport();break;
     case 'hpdf':hExport();break;
     case 'hrep':{const h=state.hist;openReport({org:h.org,type:h.tab==='stock'?'STOCK':h.tab.toUpperCase(),period:'custom',from:h.from||undefined,to:h.to||undefined});break}
     case 'sfilt':state.sup.f=k;views.supporters.list();break;
