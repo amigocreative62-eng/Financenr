@@ -437,6 +437,42 @@ html[data-theme=dark] .stx.on{color:#4ADE80}
 .spb.d{color:var(--bad)}
 .sph{flex:1;display:flex;align-items:center;justify-content:flex-start;gap:10px;border-left:0;padding:0 4px;font-weight:700;font-size:14px;font-family:inherit}
 .sph svg{width:22px;height:22px}
+
+/* stock history */
+.hso{margin:0 0 12px;min-height:48px;border-radius:16px;font-size:15px}.hso select{font-size:15px;font-weight:800}
+.sov-card{padding:14px;border-radius:20px}
+.sovh{display:flex;align-items:center;gap:12px;margin-bottom:12px}.sovh b{display:block;font-family:var(--display);font-size:18px}.sovh small{color:var(--muted);font-size:13px}
+.sovg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sovg+.sovu,.sovu{margin:10px 2px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.sovu:first-of-type{margin-top:0}
+.sov{border-radius:14px;padding:12px 4px;text-align:center;background:var(--g50);min-width:0}
+.sov b{display:block;font-family:var(--display);font-size:clamp(14px,4.6vw,19px);color:#0E8159;white-space:nowrap}
+.sov span{font-size:12.5px;color:var(--muted);font-weight:600}
+.sov.w{background:var(--warnbg)}.sov.w b{color:#B45309}
+.sov.b b{color:var(--gt)}html[data-theme=dark] .sov b{color:var(--gt)}html[data-theme=dark] .sov.w b{color:var(--warn)}
+.skh{font-family:'Inter',var(--body);font-size:15px;font-weight:800;margin:18px 2px 10px}
+.skl{display:grid;gap:10px}
+.skc{display:block;width:100%;text-align:left;background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:12px 14px;color:var(--ink);font-family:inherit}
+.skc.on{border-color:var(--g700);box-shadow:0 0 0 2px var(--g100)}
+.skt{display:flex;align-items:center;justify-content:space-between;gap:8px}.skt b{font-size:16px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skav{flex:none;background:var(--g100);color:var(--gt);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:800}.skav.z{background:var(--badbg);color:var(--bad)}
+.skc .pbar{height:8px;margin-top:10px}.skp{font-size:12.5px;color:var(--muted);margin-top:8px}
+.sktabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 10px}
+.sktab{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:99px;border:1px solid var(--line);background:var(--surf);color:var(--gt);font-weight:800;font-size:14px;font-family:inherit}
+.sktab svg{width:19px;height:19px}.sktab.on{background:var(--g800);border-color:var(--g800);color:#fff}
+.skfor{font-size:12px;margin:0 2px 8px}
+.sdl{background:var(--surf);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sdr{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;text-align:left;padding:10px 14px;color:var(--ink);font-family:inherit}
+.sdr+.sdr{border-top:1px solid var(--line)}
+.sdr .ico{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center}
+.sdm{flex:1;min-width:0}.sdm b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdm small{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:12.5px;margin-top:2px}.sdm small svg{width:13px;height:13px}
+.sdq{flex:none;font-family:var(--display);font-weight:800;font-size:16px;color:#0E8159}html[data-theme=dark] .sdq{color:var(--gt)}
+.sut{background:var(--surf);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sut table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
+.sut th{background:var(--g50);color:var(--ink);text-align:left;padding:9px 6px;font-size:12px}
+.sut td{padding:9px 6px;border-top:1px solid var(--line);vertical-align:top;word-wrap:break-word}
+.sut th:first-child,.sut td:first-child{padding-left:10px}.sut td.n{font-weight:700;white-space:nowrap}
+.sut th:nth-child(1){width:23%}.sut th:nth-child(2){width:17%}.sut th:nth-child(3){width:19%}.sut th:nth-child(4){width:23%}
+.sut tr[data-act]{cursor:pointer}
 </style>
 </head>
 <body>
@@ -569,7 +605,7 @@ let safeMeta=null,safeLoaded=false,safeUnlocked=false,pinFails=0,pinLock=0;
 const loaded={},synced={},ofSynced={};
 let settingsReady=false;let counters={},settings={signatory:'',footerNote:'',modeSplit:true};
 const state={route:'home',org:'ALL',tab:'income',
-  hist:{tab:'income',q:'',org:'ALL',from:'',to:'',stype:'ALL',pay:'ALL',src:'ALL',fopen:false,limit:60},
+  hist:{tab:'income',q:'',org:'ALL',from:'',to:'',stype:'ALL',pay:'ALL',src:'ALL',sorg:'MAIC',sitem:'',stab:'donor',fopen:false,limit:60},
   sup:{q:'',hm:'',f:'all'},
   sz:{tab:'over',q:'',dst:'All',hq:'',ht:'ALL',per:'all',from:'',to:'',limit:60,rper:'month',rfrom:'',rto:'',rmonth:today().slice(0,7),ryear:String(new Date().getFullYear())}};
 let lastOrg='';
@@ -1042,14 +1078,64 @@ const hRecs=()=>{
   const a=h.stype!=='USED'?data.stockin.map(x=>Object.assign({kind:'stockin'},x)):[],b=h.stype!=='IN'?data.stockuse.map(x=>Object.assign({kind:'stockuse'},x)):[];
   return f(a.concat(b),x=>[x.item,x.source,x.purpose,x.notes,x.org].join(' '));
 };
+
+/* ---------- stock history ---------- */
+const skKey=x=>x.itemKey+'|'+ik(x.unit);
+function stkData(){
+  const h=state.hist,org=h.sorg||ORGS[0],items=stockSummary(org).filter(e=>e.org===org);
+  const keys=items.map(skKey);if(h.sitem&&!keys.includes(h.sitem))h.sitem='';
+  const sel=h.sitem,q=h.q.trim().toLowerCase();
+  const fl=(x,hay)=>(!h.from||x.date>=h.from)&&(!h.to||x.date<=h.to)&&(!sel||skKey(x)===sel)&&(!q||hay.toLowerCase().includes(q));
+  const ins=data.stockin.filter(x=>x.org===org&&fl(x,[x.name,x.phone,x.item,x.source,x.notes,x.other].join(' '))).sort(byNew);
+  const uses=data.stockuse.filter(x=>x.org===org&&fl(x,[x.item,x.purpose,x.notes,x.other].join(' '))).sort(byNew);
+  const um=new Map();items.forEach(e=>{const k=ik(e.unit);let u=um.get(k);if(!u){u={unit:e.unit,in:0,used:0};um.set(k,u)}u.in+=e.in;u.used+=e.used});
+  return{org,items,sel,ins,uses,units:[...um.values()]};
+}
+function stkView(){
+  const h=state.hist,d=stkData();
+  const cell=(c,l,v,u)=>`<div class="sov ${c}"><b>${fmtQty(v)} ${esc(u)}</b><span>${l}</span></div>`;
+  const ov=d.units.length?d.units.map(u=>`${d.units.length>1?`<div class="sovu">${esc(u.unit)}</div>`:''}<div class="sovg">${cell('i','Received',u.in,u.unit)}${cell('w','Used',u.used,u.unit)}${cell('b','Balance',u.in-u.used,u.unit)}</div>`).join(''):'<div class="muted" style="padding:6px 2px 2px">No stock recorded for '+d.org+' yet.</div>';
+  const cards=d.items.map(e=>{const pct=e.in>0?Math.max(0,Math.min(100,e.bal/e.in*100)):0,p=(Math.round(pct*10)/10),on=skKey(e)===d.sel;
+    return `<button type="button" class="skc${on?' on':''}" data-act="sitem" data-k="${esc(skKey(e))}" aria-pressed="${on}"><div class="skt"><b>${esc(e.item)}</b><span class="skav${e.bal<=0?' z':''}">${fmtQty(e.bal)} ${esc(e.unit)} Available</span></div><div class="pbar"><i style="width:${pct}%"></i></div><div class="skp">${p}% of ${fmtQty(e.in)} ${esc(e.unit)}</div></button>`}).join('');
+  const donor=d.ins.slice(0,h.limit).map(x=>`<button type="button" class="sdr" data-act="hview" data-id="${esc(x.id)}" data-k="stockin"><span class="ico inc">${icon('users')}</span><span class="sdm"><b>${esc(x.name||x.source||'Donor not recorded')}</b><small>${icon('cal')} ${fmtDate(x.date)}${d.sel?'':' · '+esc(x.item)}</small></span><span class="sdq">+${fmtQty(x.qtyMilli)} ${esc(x.unit)}</span></button>`).join('');
+  const use=d.uses.slice(0,h.limit).map(x=>`<tr data-act="hview" data-id="${esc(x.id)}" data-k="stockuse"><td>${fmtDate(x.date)}</td><td>${esc(x.item)}</td><td class="n">${fmtQty(x.qtyMilli)} ${esc(x.unit)}</td><td>${esc(x.purpose||'—')}</td><td>${esc(x.notes||'—')}</td></tr>`).join('');
+  const isD=h.stab!=='usage',cnt=isD?d.ins.length:d.uses.length;
+  return `<section class="panel sov-card"><div class="sovh"><span class="sti">${icon('box')}</span><div><b>${esc(d.org)}</b><small>Stock Overview</small></div></div>${ov}</section>
+   <h3 class="skh">Item-wise Stock</h3>${cards?`<div class="skl">${cards}</div>`:emptyState('No stock items','Add stock for '+d.org+' to see it here.')}
+   <div class="sktabs" role="tablist"><button class="sktab${isD?' on':''}" role="tab" aria-selected="${isD}" data-act="stab" data-k="donor">${icon('users')} Donor History</button><button class="sktab${!isD?' on':''}" role="tab" aria-selected="${!isD}" data-act="stab" data-k="usage">${icon('history')} Usage History</button></div>
+   ${d.sel?`<div class="muted skfor">Showing ${esc((d.items.find(e=>skKey(e)===d.sel)||{}).item||'')} only · tap the item again to see all</div>`:''}
+   ${cnt?(isD?`<div class="sdl">${donor}</div>`:`<div class="sut"><table><thead><tr><th>Date</th><th>Item</th><th>Used</th><th>Purpose</th><th>Notes</th></tr></thead><tbody>${use}</tbody></table></div>`)+(cnt>h.limit?`<div class="more-wrap"><button class="btn" data-act="hmore">Show more (${cnt-h.limit} left)</button></div>`:''):emptyState(isD?'No donor history':'No usage history',state.hist.q||state.hist.from||state.hist.to?'Try a different search or clear the filters.':'Nothing recorded yet.')}`;
+}
+function hExportStock(){
+  const d=stkData(),h=state.hist;
+  if(!d.items.length&&!d.ins.length&&!d.uses.length){toast('There is no stock to export for '+d.org+'.',true);return}
+  if(!window.jspdf){toast('The PDF library did not load. Check your connection and try again.',true);return}
+  try{
+    const J=window.jspdf.jsPDF,doc=new J({unit:'mm',format:'a4',orientation:'landscape'}),W=297,M=12,G9=[5,61,46],G7=[11,110,79],INK=[16,35,27],MU=[91,110,100];
+    doc.setFillColor(...G9);doc.rect(0,0,W,26,'F');doc.setFillColor(201,162,75);doc.rect(0,26,W,1.2,'F');
+    doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text('FINANCE',M,12);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.text('Stock Report  ·  '+d.org+'  ·  Generated '+fmtDate(today()),M,20);
+    const fl=[d.sel?'Item: '+((d.items.find(e=>skKey(e)===d.sel)||{}).item||''):'',h.q.trim()?'Search: '+h.q.trim():'',h.from?'From '+fmtDate(h.from):'',h.to?'To '+fmtDate(h.to):''].filter(Boolean);
+    doc.setTextColor(...INK);doc.setFontSize(9.5);doc.text(fl.length?'History filters: '+fl.join('  |  '):'History filters: none',M,35);
+    const T=(y,title,head,body)=>{doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...INK);doc.text(title,M,y);
+      doc.autoTable({startY:y+3,head:[head],body:body.length?body:[['None',...head.slice(1).map(()=>'')]],theme:'grid',styles:{fontSize:8.5,cellPadding:2,textColor:INK,lineColor:[221,230,223],lineWidth:.1,overflow:'linebreak'},headStyles:{fillColor:G7,textColor:255,fontStyle:'bold'},alternateRowStyles:{fillColor:[248,251,249]},margin:{left:M,right:M}});
+      return (doc.lastAutoTable&&doc.lastAutoTable.finalY||y+10)+9};
+    let y=T(42,'Stock Overview',['Unit','Received','Used','Balance'],d.units.map(u=>[u.unit,fmtQty(u.in),fmtQty(u.used),fmtQty(u.in-u.used)]));
+    y=T(y,'Item-wise Stock',['Item','Unit','Received','Used','Balance','Remaining'],d.items.map(e=>[e.item,e.unit,fmtQty(e.in),fmtQty(e.used),fmtQty(e.bal),(e.in>0?Math.round(e.bal/e.in*1000)/10:0)+'%']));
+    y=T(y,'Donor History',['Date','Donor','Phone','Item','Quantity','Source'],d.ins.map(x=>[fmtDate(x.date),x.name||'-',x.phone||'-',x.item,'+'+fmtQty(x.qtyMilli)+' '+x.unit,x.source||'-']));
+    T(y,'Usage History',['Date','Item','Used','Purpose','Notes'],d.uses.map(x=>[fmtDate(x.date),x.item,fmtQty(x.qtyMilli)+' '+x.unit,x.purpose||'-',x.notes||'-']));
+    const n=doc.getNumberOfPages();
+    for(let i=1;i<=n;i++){doc.setPage(i);doc.setDrawColor(221,230,223);doc.line(M,200,W-M,200);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...MU);doc.text('FINANCE  |  '+d.org+' stock',M,205);doc.text('Page '+i+' of '+n,W-M,205,{align:'right'})}
+    saveFile('FINANCE_'+d.org+'_Stock_'+today()+'.pdf',doc.output('blob'));
+  }catch(err){toast('Could not build the PDF: '+(err&&err.message||'unknown error'),true)}
+}
 const hjOf=d=>{try{const j=hijriOf(d);return (HM[j.m-1]||'')+' '+j.y}catch(e){return ''}};
 function hActive(){
   const h=state.hist,L=[];
   if(h.q.trim())L.push(['q','“'+h.q.trim()+'”']);
-  if(h.org!=='ALL')L.push(['org',h.org]);
+  if(h.org!=='ALL'&&h.tab!=='stock')L.push(['org',h.org]);
   if(h.tab!=='stock'&&h.pay!=='ALL')L.push(['pay',h.pay]);
   if(h.tab==='income'&&h.src!=='ALL')L.push(['src',h.src==='OFFER'?'Offer collection':'Regular income']);
-  if(h.tab==='stock'&&h.stype!=='ALL')L.push(['stype',h.stype==='IN'?'Stock in only':'Usage only']);
   if(h.from)L.push(['from','From '+fmtDate(h.from)]);
   if(h.to)L.push(['to','To '+fmtDate(h.to)]);
   return L;
@@ -1094,6 +1180,7 @@ function hDetails(id,kind){
   sh.addEventListener('click',e=>{if(e.target.closest('[data-act]'))setTimeout(()=>closeSheet(sh),0)});
 }
 function hExport(){
+  if(state.hist.tab==='stock')return hExportStock();
   const h=state.hist,rows=hRecs();
   if(!rows.length){toast('There are no records to export for the current filters.',true);return}
   if(!window.jspdf){toast('The PDF library did not load. Check your connection and try again.',true);return}
@@ -1125,10 +1212,11 @@ views.history={
     const h=state.hist;this.el=el;
     el.innerHTML=`<div id="hbn"></div>
     <div class="htabs" role="tablist" aria-label="History type">${[['income','INCOME','down'],['expense','EXPENSE','up'],['stock','STOCK','box']].map(([k,l,i])=>`<button class="htab" role="tab" data-act="htab" data-k="${k}">${icon(i)}<span>${l}</span></button>`).join('')}</div>
+    <label class="ofsel hso" id="hsow" style="display:none">${icon('org')}<select id="hso" aria-label="Organization">${ORGS.map(o=>`<option value="${o}">${o}</option>`).join('')}</select></label>
     <div class="sbox hsearch"><span>${icon('search')}</span><input type="search" id="hq" placeholder="Search name, amount, receipt…" value="${esc(h.q)}" aria-label="Search"></div>
     <div class="hbar"><button class="btn hfbtn" id="hfb" data-act="hfilt" aria-expanded="false">${icon('filter')} <span>Filters</span> <b id="hfn" class="hbadge" style="display:none"></b> <span class="hchev">${icon('chev')}</span></button><button class="btn hclr" id="hcl" data-act="hclear" style="display:none">${icon('x')} Clear Filters</button></div>
     <div class="hfp" id="hfp" style="display:none">
-      <div class="row2"><div class="fld"><label for="ho">Organization</label><select id="ho">${['ALL',...ORGS].map(o=>`<option value="${o}">${o==='ALL'?'All organizations':o}</option>`).join('')}</select></div>
+      <div class="row2"><div class="fld" id="how"><label for="ho">Organization</label><select id="ho">${['ALL',...ORGS].map(o=>`<option value="${o}">${o==='ALL'?'All organizations':o}</option>`).join('')}</select></div>
       <div class="fld" id="hpw"><label for="hp">Payment method</label><select id="hp"><option value="ALL">All</option><option value="Cash">Cash</option><option value="Account">Account</option></select></div>
       <div class="fld" id="hsw"><label for="hsr">Source</label><select id="hsr"><option value="ALL">All income</option><option value="OFFER">Offer collection</option><option value="REG">Regular income</option></select></div>
       <div class="fld" id="hstw"><label for="hs">Stock type</label><select id="hs"><option value="ALL">Stock in and usage</option><option value="IN">Stock in only</option><option value="USED">Usage only</option></select></div></div>
@@ -1137,7 +1225,7 @@ views.history={
     <div class="hchips" id="hchips"></div>
     <div id="hsum" class="muted hsum"></div><div id="hlist"></div>
     <div class="more-wrap"><button class="btn hexp" data-act="hpdf">${icon('file')} Export PDF</button></div>`;
-    $('#ho',el).value=h.org;$('#hp',el).value=h.pay;$('#hsr',el).value=h.src==='ALL'?'ALL':h.src==='OFFER'?'OFFER':'REG';$('#hs',el).value=h.stype;$('#hf',el).value=h.from;$('#ht',el).value=h.to;
+    $('#ho',el).value=h.org;$('#hso',el).value=h.sorg||ORGS[0];$('#hso',el).addEventListener('change',e=>{h.sorg=e.target.value;h.sitem='';h.limit=60;this.list()});$('#hp',el).value=h.pay;$('#hsr',el).value=h.src==='ALL'?'ALL':h.src==='OFFER'?'OFFER':'REG';$('#hs',el).value=h.stype;$('#hf',el).value=h.from;$('#ht',el).value=h.to;
     const ch=(id,fn,ev='change')=>$('#'+id,el).addEventListener(ev,e=>{fn(e.target.value);h.limit=60;this.list()});
     ch('hq',v=>h.q=v,'input');ch('ho',v=>h.org=v);ch('hp',v=>h.pay=v);ch('hsr',v=>h.src=v==='REG'?'REG':v);ch('hs',v=>h.stype=v);ch('hf',v=>h.from=v);ch('ht',v=>h.to=v);
   },
@@ -1145,12 +1233,14 @@ views.history={
   list(){
     const h=state.hist,el=this.el;
     $$('.htab',el).forEach(b=>{const on=b.dataset.k===h.tab;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
-    $('#hpw',el).style.display=h.tab==='stock'?'none':'';$('#hsw',el).style.display=h.tab==='income'?'':'none';$('#hstw',el).style.display=h.tab==='stock'?'':'none';
+    const stk=h.tab==='stock';$('#hsow',el).style.display=stk?'':'none';$('#how',el).style.display=stk?'none':'';$('#hsum',el).style.display=stk?'none':'';
+    $('#hpw',el).style.display=stk?'none':'';$('#hsw',el).style.display=h.tab==='income'?'':'none';$('#hstw',el).style.display='none';
     $('#hfp',el).style.display=h.fopen?'':'none';$('#hfb',el).setAttribute('aria-expanded',h.fopen);$('#hfb',el).classList.toggle('open',!!h.fopen);
     const act=hActive();
     $('#hcl',el).style.display=act.length?'':'none';$('#hfb',el).classList.toggle('grow',!act.length);
     const bd=$('#hfn',el);const nf=act.filter(a=>a[0]!=='q').length;bd.style.display=nf?'':'none';bd.textContent=nf;
     $('#hchips',el).innerHTML=act.map(([k,l])=>`<button class="hchip" data-act="hrm" data-k="${k}" aria-label="Remove filter ${esc(l)}">${esc(l)} ${icon('x')}</button>`).join('');
+    if(stk){$('#hlist',el).innerHTML=stkView();return}
     const rows=hRecs();let sum='';
     if(h.tab==='stock')sum=rows.length+(rows.length===1?' stock entry':' stock entries');
     else sum=rows.length+(rows.length===1?' entry':' entries')+' · '+fmt(sumP(rows));
@@ -2446,8 +2536,10 @@ document.addEventListener('click',async e=>{
       $('#hq',el).value=h.q;$('#ho',el).value=h.org;$('#hp',el).value=h.pay;$('#hsr',el).value=h.src;$('#hs',el).value=h.stype;$('#hf',el).value=h.from;$('#ht',el).value=h.to;views.history.list();break}
     case 'hview':hDetails(id,k);break;
     case 'sup-pdf':supExport();break;
+    case 'sitem':{const h=state.hist;h.sitem=h.sitem===k?'':k;h.limit=60;views.history.list();break}
+    case 'stab':{const h=state.hist;h.stab=k;h.limit=60;views.history.list();break}
     case 'hpdf':hExport();break;
-    case 'hrep':{const h=state.hist;openReport({org:h.org,type:h.tab==='stock'?'STOCK':h.tab.toUpperCase(),period:'custom',from:h.from||undefined,to:h.to||undefined});break}
+    case 'hrep':{const h=state.hist;openReport({org:h.tab==='stock'?(h.sorg||ORGS[0]):h.org,type:h.tab==='stock'?'STOCK':h.tab.toUpperCase(),period:'custom',from:h.from||undefined,to:h.to||undefined});break}
     case 'sfilt':state.sup.f=k;views.supporters.list();break;
     case 'sup-open':supporterSheet(id);break;
     case 'sup-add':{const sp=data.supporters.find(x=>x.id===id);if(sp)openSupporter({name:sp.name,phone:sp.phone,address:sp.address,gender:sp.gender,whatsapp:sp.whatsapp,relation:sp.relation});break}
