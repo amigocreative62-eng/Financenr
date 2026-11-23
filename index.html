@@ -799,7 +799,7 @@ function openIncome(rec,opts){
    <div class="row2">${field('date','Date',{type:'date',value:r.date||today(),attrs:'max="'+today()+'"'})}${field('amount','Amount (₹)',{value:r.amountPaise?(r.amountPaise/100).toFixed(2):'',attrs:'inputmode="decimal" placeholder="0.00"'})}</div>
    ${paySeg(r.payType)}
    <div id="txnWrap">${field('txn','UPI ID / Transaction ID',{value:r.txnId,attrs:'autocomplete="off" maxlength="60"'})}</div>
-   ${field('rno','Receipt Number',{value:r.receiptNo,attrs:'autocomplete="off" maxlength="30"'})}
+   ${field('rno','Receipt Number',{value:r.receiptNo,attrs:'autocomplete="off" maxlength="30"',hint:'Optional.'})}
    ${field('purpose','Being As / Purpose',{value:r.purpose,attrs:'list="purposes" maxlength="120"'})}<datalist id="purposes">${purposes.map(p=>`<option value="${esc(p)}">`).join('')}</datalist>
    ${edit?'':`<label class="chk"><input type="checkbox" id="sup" checked><span>Also record this as a supporter donation (needs a phone number). Adds to the Hijri year-wise history.</span></label>`}
    ${actionsHtml('Save Income')}</form>`;
@@ -811,7 +811,6 @@ function openIncome(rec,opts){
   bindForm(s,async()=>{
     let ok=true;const o=val(s,'org'),name=val(s,'name'),ph=val(s,'phone'),date=val(s,'date'),pay=$('input[name=pay]:checked',s).value,txn=val(s,'txn'),purpose=val(s,'purpose'),rn=val(s,'rno');
     const amt=parseMoney(val(s,'amount'));
-    if(!rn)ok=fail(s,'rno','Enter the receipt number.');
     if(!o)ok=fail(s,'org','Choose the organization.');
     if(name.length<2)ok=fail(s,'name','Enter the name.');
     if(ph&&!normPhone(ph))ok=fail(s,'phone','Enter a valid 10-digit mobile number.');
@@ -838,14 +837,14 @@ function openIncome(rec,opts){
       if(res!=='dup'){await db.doc('income/'+id).update({supporterId:'p'+phone});note=' Added to supporter history.'}
     }
     if(opts.onSaved)await opts.onSaved(id);
-    toast(edit?'Income updated.':'Income saved. Receipt '+doc.receiptNo+'.'+note);
+    toast(edit?'Income updated.':'Income saved.'+(doc.receiptNo?' Receipt '+doc.receiptNo+'.':'')+note);
     if(!edit)setTimeout(()=>openReceipt(Object.assign({id},doc)),150);
     return true;
   },'Save Income');
 }
 /* receipt */
 function receiptText(x){
-  return `*FINANCE – ${x.org}*\nReceipt No: ${x.receiptNo}\nDate: ${fmtDate(x.date)}\n\nReceived with thanks from ${x.name}\nAmount: ${fmt(x.amountPaise)}\n(${inWords(x.amountPaise)})${x.purpose?'\nBeing: '+x.purpose:''}\nPayment: ${x.payType}${x.txnId?' ('+x.txnId+')':''}\n\nJazakallah khair.`;
+  return `*FINANCE – ${x.org}*\n${x.receiptNo?'Receipt No: '+x.receiptNo+'\n':''}Date: ${fmtDate(x.date)}\n\nReceived with thanks from ${x.name}\nAmount: ${fmt(x.amountPaise)}\n(${inWords(x.amountPaise)})${x.purpose?'\nBeing: '+x.purpose:''}\nPayment: ${x.payType}${x.txnId?' ('+x.txnId+')':''}\n\nJazakallah khair.`;
 }
 function openReceipt(x){
   const kv=(k,v)=>v?`<div class="kv"><span>${k}</span><span>${esc(v)}</span></div>`:'';
@@ -864,14 +863,14 @@ function receiptPdf(x){
   const doc=new window.jspdf.jsPDF({unit:'mm',format:'a5'});const W=148,M=12;
   doc.setFillColor(5,61,46);doc.rect(0,0,W,34,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(22);doc.text('FINANCE',M,15);
   doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text('Institution Finance Management System',M,21);doc.setFontSize(12);doc.setFont('helvetica','bold');doc.text('Receipt - '+x.org,M,29);
-  doc.setFontSize(9);doc.text('No. '+x.receiptNo,W-M,15,{align:'right'});doc.text(fmtDate(x.date),W-M,21,{align:'right'});
+  doc.setFontSize(9);if(x.receiptNo)doc.text('No. '+x.receiptNo,W-M,15,{align:'right'});doc.text(fmtDate(x.date),W-M,21,{align:'right'});
   let y=46;doc.setTextColor(30,40,35);
   const line=(k,v)=>{if(!v)return;doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(100,115,108);doc.text(k,M,y);doc.setTextColor(16,35,27);doc.setFont('helvetica','bold');doc.setFontSize(10.5);const t=doc.splitTextToSize(String(v),W-M-52);doc.text(t,50,y);y+=Math.max(8,t.length*5+3);doc.setDrawColor(221,230,223);doc.line(M,y-5,W-M,y-5)};
   line('Received from',x.name);line('Address',x.address);line('Phone',x.phone);
   doc.setFillColor(238,247,242);doc.roundedRect(M,y-2,W-2*M,18,3,3,'F');doc.setFontSize(9);doc.setTextColor(100,115,108);doc.setFont('helvetica','normal');doc.text('Amount',M+4,y+4);doc.setFontSize(16);doc.setTextColor(11,110,79);doc.setFont('helvetica','bold');doc.text(fmtPdf(x.amountPaise),W-M-4,y+11,{align:'right'});y+=24;
   line('In words',inWords(x.amountPaise));line('Being as',x.purpose);line('Payment',x.payType+(x.txnId?' - '+x.txnId:''));
   y=Math.max(y+14,170);doc.setDrawColor(100,115,108);doc.line(W-M-48,y,W-M,y);doc.setFontSize(8.5);doc.setTextColor(100,115,108);doc.setFont('helvetica','normal');doc.text(settings.signatory?('For '+settings.signatory):'Authorised signatory',W-M,y+5,{align:'right'});
-  saveFile('Receipt_'+x.receiptNo+'.pdf',doc.output('blob'));
+  saveFile('Receipt_'+(x.receiptNo||x.name.replace(/[^A-Za-z0-9]+/g,'_')+'_'+x.date)+'.pdf',doc.output('blob'));
 }
 
 /* ---------- EXPENSE form ---------- */
